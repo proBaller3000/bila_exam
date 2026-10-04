@@ -2,12 +2,12 @@ import random
 
 import streamlit as st
 
-from questions import QUESTIONS, SECTIONS
+from questions import FACHS, QUESTIONS, SECTIONS
 
 st.set_page_config(page_title="BiLa Lern-App", page_icon="🌾", layout="centered")
-st.title("BiLa Abschlussprüfung – Pflanzenproduktion 2021")
-st.caption("Multiple-Choice-Trainer zu den Prüfungsteilen 2021. Antworten belegt aus dem "
-           "Unterrichtsmaterial in bila_25-27/.")
+st.title("BiLa Abschlussprüfung – Lern-App")
+st.caption("Multiple-Choice-Trainer zu allen Prüfungsteilen der Abschlussjahre "
+           "2020–2023. Antworten belegt aus dem Unterrichtsmaterial in bila_25-27/.")
 
 
 @st.cache_data
@@ -33,10 +33,11 @@ def start(pool):
 
 
 st.sidebar.header("Einstellung")
-auswahl = st.sidebar.multiselect(
-    "Prüfungsteile", list(SECTIONS), default=list(SECTIONS),
-    format_func=lambda s: SECTIONS[s],
-)
+fachs = st.sidebar.multiselect("Prüfungsfach", list(FACHS), default=list(FACHS),
+                               format_func=lambda f: FACHS[f])
+kategorien = [s for s in SECTIONS if s.split("|")[0] in fachs]
+auswahl = st.sidebar.multiselect("Kategorie", kategorien, default=kategorien,
+                                 format_func=lambda s: f"{FACHS[s.split('|')[0]]} · {SECTIONS[s]}")
 pool = fragenpool(tuple(auswahl)) if auswahl else []
 
 if st.session_state.get("auswahl") != tuple(auswahl):
@@ -44,7 +45,7 @@ if st.session_state.get("auswahl") != tuple(auswahl):
     start(pool)
 
 if not pool:
-    st.warning("Bitte mindestens einen Prüfungsteil auswählen.")
+    st.warning("Bitte mindestens eine Kategorie auswählen.")
     st.stop()
 
 st.progress(len(st.session_state["fragen"]) / len(pool),
@@ -67,7 +68,8 @@ if st.session_state["aktuelle"] is None:
 idx, q, optionen = st.session_state["aktuelle"]
 
 with st.container(border=True):
-    st.caption(f"{SECTIONS[q['section']]}  ·  Aufgabe {q['id']}  ·  {q['topic']}")
+    fach = q["section"].split("|")[0]
+    st.caption(f"{FACHS[fach]} · {SECTIONS[q['section']]} · {q['topic']} · {q['id']}")
     st.subheader(q["frage"])
 
     with st.form("antwort"):
