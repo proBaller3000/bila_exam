@@ -1,0 +1,10 @@
+[project]
+name = "bila_exam"
+version = "0.1.0"
+description = "Bila Abschlussprüfung Lern App"
+requires-python = ">=3.11"
+dependencies = [
+"streamlit>=1.40",
+]
+
+[tool.streamlit]
