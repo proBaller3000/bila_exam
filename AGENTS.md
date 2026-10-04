@@ -1,5 +1,7 @@
 # Lern app für bila Abschlussprüfung
 
+mach eine streamlit app um bila prüfungen zu lernen. hole dir als erstes nur für alle jahre alle fragen. die resourcen für prüfungsfragen sind nach jahren geordnet, für die app sind alle fragen nur nach kategorie geordnet, die jahre spielen in der app keine rolle mehr. beantworte dir die fragen aus den resourcen unter @bila_25-27/ - erstelle dann eine prüfungs lern app mit streamlit in denen alle fragen dieses teils per multiple choice an den app user eine nach der anderen gestellt werden. antwort eingeloggen - auflösung zeigt ob die richtige antwort gewählt wurde - nächste frage. erstelle für das multiple choice ein paar falsche antworten pro frage.
+
 # Prüfungsfragen:
 
 ## 2023
