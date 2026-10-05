@@ -26,6 +26,7 @@ def neue_frage(pool):
 
 def start(pool):
     st.session_state["reihenfolge"] = list(range(len(pool)))
+    random.shuffle(st.session_state["reihenfolge"])
     st.session_state["fragen"] = []
     st.session_state["richtig"] = 0
     st.session_state["aktuelle"] = None
